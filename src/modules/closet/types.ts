@@ -1,0 +1,5 @@
+export enum ActionType {
+  GET_LIST = 'GET_LIST',
+  GET_LIST_SUCCESS = 'GET_LIST_SUCCESS',
+  GET_LIST_ERROR = 'GET_LIST_ERROR',
+}
