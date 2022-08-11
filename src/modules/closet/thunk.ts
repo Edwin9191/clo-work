@@ -9,12 +9,12 @@ export const getListThunk = () => {
     dispatch({
       type: ActionType.GET_LIST,
     });
-    console.log('1');
+
     try {
-      const data = await getList();
+      const list = await getList();
       dispatch({
         type: ActionType.GET_LIST_SUCCESS,
-        payload: data,
+        payload: list,
       });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
