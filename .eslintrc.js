@@ -21,10 +21,12 @@ module.exports = {
   ],
   rules: {
     'default-param-last': 0,
+    'react/require-default-props': 'off',
     'import/prefer-default-export': 'off',
     'no-restricted-exports': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
+    'react/no-array-index-key': 'off',
     'react/jsx-filename-extension': [
       'error',
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
