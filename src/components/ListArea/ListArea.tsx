@@ -7,16 +7,29 @@ const Block = styled.div`
   flex-wrap: wrap;
 `;
 
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  /* height: 300px; */
-  object-fit: scale-down;
-`;
-
 // const Row = styled.div`
 //   height: 300px;
 // `;
+
+const calcWidthPadding = (heightRatio: any, widthRatio: any) => {
+  const result = (heightRatio / widthRatio) * 100;
+  return result;
+};
+const ImgWrapper = styled.div<{ heightRatio: number; widthRatio: number }>`
+  width: 100%;
+  position: relative;
+  padding-top: ${({ heightRatio, widthRatio }) =>
+    `${calcWidthPadding(heightRatio, widthRatio)}%`};
+`;
+
+const Img = styled.img<{ url?: string }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
 const calcWidthPercent = (span: any): number => {
   if (!span) return 0;
@@ -32,24 +45,19 @@ const Col = styled.div<{ xs: number; sm: number; md: number; lg: number }>`
   display: flex;
   flex-direction: column;
   /* padding: 1rem; */
-  height: 500px;
-  color: #fff;
-  width: ${({ xs }) => (xs ? `${calcWidthPercent(xs)}%` : `100%`)};
+  width: calc(100% / 4);
+  padding: 0.5rem;
 
-  @media only screen and (min-width: ${BREAK_POINT_MOBILE}px) {
-    /* border: 1px solid yellowgreen; */
-    width: ${({ sm }) => sm && `${calcWidthPercent(sm)}%`};
-    /* height: 20rem; */
+  @media only screen and (max-width: ${BREAK_POINT_PC}px) {
+    width: calc(100% / 3);
   }
-  @media only screen and (min-width: ${BREAK_POINT_TABLET}px) {
-    /* border: 1px solid blue; */
-    width: ${({ md }) => md && `${calcWidthPercent(md)}%`};
-    /* height: 25rem; */
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    width: calc(50%);
   }
-  @media only screen and (min-width: ${BREAK_POINT_PC}px) {
-    /* border: 1px solid red; */
-    width: ${({ lg }) => lg && `${calcWidthPercent(lg)}%`};
-    /* height: 30rem; */
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    width: calc(100%);
   }
 `;
 
@@ -79,6 +87,40 @@ const priceType: any = {
   2: 'VIEW ONLY',
 };
 
+const RatioImageBlock = styled.div`
+  width: 100%;
+  position: relative;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+`;
+
+interface RatioImageProps {
+  widthRatio: number;
+  heightRatio: number;
+  src: string;
+}
+
+function RatioImage({ heightRatio, widthRatio, src }: RatioImageProps) {
+  const paddingTop = `${(heightRatio / widthRatio) * 100}%`;
+
+  return (
+    <RatioImageBlock
+      style={{
+        paddingTop,
+      }}
+    >
+      <img src={src} alt="" />
+    </RatioImageBlock>
+  );
+}
+
 export default function ListArea({ lists, refTest }: ListAreaProps) {
   if (lists?.length === 0) {
     return <div>loading ...</div>;
@@ -88,7 +130,14 @@ export default function ListArea({ lists, refTest }: ListAreaProps) {
       {lists?.map((list: any, i) => {
         return (
           <Col key={i} xs={12} sm={6} md={4} lg={3}>
-            <Img alt="" src={list.imagePath} />
+            <RatioImage
+              src={list.imagePath}
+              widthRatio={1.9}
+              heightRatio={2.8}
+            />
+            {/* <ImgWrapper widthRatio={1.91} heightRatio={2.5}>
+              <Img alt="" src={list.imagePath} url={list.imagePath} />
+            </ImgWrapper> */}
             <P>{list.title}</P>
             <SpanWrapper>
               <Span>{`${list.creator}`}</Span> |
