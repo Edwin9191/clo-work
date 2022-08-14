@@ -33,19 +33,16 @@ const Button = styled.button`
 `;
 
 interface FilterAreaProps {
+  handleReset: () => void;
   handleCheck: (checked: boolean, option: number) => void;
   pricingOptions: number[];
 }
 
 export default function FilterArea({
+  handleReset,
   handleCheck,
   pricingOptions,
 }: FilterAreaProps) {
-  const handleReset = (e: any) => {
-    e.preventDefault();
-    console.log('reset');
-  };
-
   return (
     <Block>
       <Wrapper>

@@ -15,6 +15,7 @@ interface FilterProps {
   handleCheck: (checked: boolean, option: number) => void;
   handleChange: (text: string) => void;
   setOptions: (options: number[]) => void;
+  handleReset: () => void;
 }
 
 interface FilteredListProps {
@@ -85,6 +86,11 @@ const useFilter = (): FilterProps => {
     [pricingOptions],
   );
 
+  const handleReset = useCallback(() => {
+    localStorage.clear();
+    setPricingOptions([]);
+  }, [pricingOptions]);
+
   const filteredList = useMemo(
     () =>
       getFilteredList({ list: data, pricingOptions, pageData, searchKeyword }),
@@ -110,6 +116,7 @@ const useFilter = (): FilterProps => {
     searchKeyword,
     filteredList,
     setOptions,
+    handleReset,
   };
 };
 

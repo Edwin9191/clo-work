@@ -44,7 +44,6 @@ const BREAK_POINT_PC = 1200;
 const Col = styled.div<{ xs: number; sm: number; md: number; lg: number }>`
   display: flex;
   flex-direction: column;
-  /* padding: 1rem; */
   width: calc(100% / 4);
   padding: 0.5rem;
 
@@ -78,7 +77,7 @@ const SpanWrapper = styled.div`
 
 interface ListAreaProps {
   lists?: ClosetContent[];
-  refTest: React.MutableRefObject<HTMLDivElement>;
+  targetRef: React.MutableRefObject<HTMLDivElement>;
 }
 
 const priceType: any = {
@@ -121,7 +120,7 @@ function RatioImage({ heightRatio, widthRatio, src }: RatioImageProps) {
   );
 }
 
-export default function ListArea({ lists, refTest }: ListAreaProps) {
+export default function ListArea({ lists, targetRef }: ListAreaProps) {
   if (lists?.length === 0) {
     return <div>loading ...</div>;
   }
@@ -150,7 +149,7 @@ export default function ListArea({ lists, refTest }: ListAreaProps) {
           </Col>
         );
       })}
-      <div ref={refTest} style={{ height: 1, width: '100%' }} />
+      <div ref={targetRef} style={{ height: 1, width: '100%' }} />
     </Block>
   );
 }
