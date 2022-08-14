@@ -69,10 +69,11 @@
 // export default App;
 
 import styled from 'styled-components';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { Header, SearchArea, FilterArea, ListArea } from './components';
 import { useActions } from './hooks/useAction';
 import useFilter from './hooks/useFilter';
+import { useIntersect } from './hooks/useObserver';
 
 const ResponsiveBlock = styled.div`
   margin: 0 auto;
@@ -123,8 +124,15 @@ export default function App() {
     localStorage.setItem('options', JSON.stringify(pricingOptions));
   }, [pricingOptions]);
 
+  const ref = useIntersect(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    if (filteredList) {
+      handleClick();
+    }
+  });
+
   const inputRef = useRef<HTMLInputElement>(null);
-  console.log(filteredList);
+
   return (
     <>
       <Header />
@@ -135,7 +143,7 @@ export default function App() {
             handleCheck={handleCheck}
             pricingOptions={pricingOptions}
           />
-          <ListArea lists={filteredList} />
+          {filteredList && <ListArea lists={filteredList} refTest={ref} />}
         </ResponsiveBlock>
       </form>
     </>

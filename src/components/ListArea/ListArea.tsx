@@ -3,13 +3,15 @@ import styled from 'styled-components';
 import { ClosetContent } from '../../api/closet';
 
 const Block = styled.div`
-  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const Img = styled.img`
   width: 100%;
-  height: 90%;
+  height: 100%;
   /* height: 300px; */
+  object-fit: scale-down;
 `;
 
 // const Row = styled.div`
@@ -27,7 +29,8 @@ const BREAK_POINT_TABLET = 768;
 const BREAK_POINT_PC = 1200;
 
 const Col = styled.div<{ xs: number; sm: number; md: number; lg: number }>`
-  float: left;
+  display: flex;
+  flex-direction: column;
   /* padding: 1rem; */
   height: 500px;
   color: #fff;
@@ -67,6 +70,7 @@ const SpanWrapper = styled.div`
 
 interface ListAreaProps {
   lists?: ClosetContent[];
+  refTest: React.MutableRefObject<HTMLDivElement>;
 }
 
 const priceType: any = {
@@ -75,7 +79,7 @@ const priceType: any = {
   2: 'VIEW ONLY',
 };
 
-export default function ListArea({ lists }: ListAreaProps) {
+export default function ListArea({ lists, refTest }: ListAreaProps) {
   if (lists?.length === 0) {
     return <div>loading ...</div>;
   }
@@ -97,6 +101,7 @@ export default function ListArea({ lists }: ListAreaProps) {
           </Col>
         );
       })}
+      <div ref={refTest} style={{ height: 1, width: '100%' }} />
     </Block>
   );
 }

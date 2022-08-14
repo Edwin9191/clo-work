@@ -31,6 +31,7 @@ module.exports = {
       'error',
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
+    'consistent-return': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
