@@ -14,7 +14,7 @@ interface FilterProps {
   handleClick: () => void;
   handleCheck: (checked: boolean, option: number) => void;
   handleChange: (text: string) => void;
-  setOptions: (options: number[]) => void;
+  saveOptions: (options: number[]) => void;
   handleReset: () => void;
 }
 
@@ -70,7 +70,7 @@ const useFilter = (): FilterProps => {
     list: { data },
   } = useAppSelector(state => state.closet);
 
-  const setOptions = useCallback((options: number[]) => {
+  const saveOptions = useCallback((options: number[]) => {
     setPricingOptions([...options]);
   }, []);
 
@@ -115,7 +115,7 @@ const useFilter = (): FilterProps => {
     handleClick,
     searchKeyword,
     filteredList,
-    setOptions,
+    saveOptions,
     handleReset,
   };
 };

@@ -23,6 +23,14 @@ const ResponsiveBlock = styled.div`
   }
 `;
 
+const setStorage = (key: string, value: number[]) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+
+const getStorage = (key: string) => {
+  return localStorage.getItem(key);
+};
+
 export default function App() {
   const { getListThunk } = useActions();
   const {
@@ -31,19 +39,19 @@ export default function App() {
     handleClick,
     pricingOptions,
     filteredList,
-    setOptions,
+    saveOptions,
     handleReset,
   } = useFilter();
 
   useEffect(() => {
     getListThunk();
-    if (localStorage.getItem('options')) {
-      setOptions(JSON.parse(localStorage.getItem('options')));
+    if (getStorage('options')) {
+      saveOptions(JSON.parse(getStorage('options')));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('options', JSON.stringify(pricingOptions));
+    setStorage('options', pricingOptions);
   }, [pricingOptions]);
 
   const targetRef = useIntersect(async (entry, observer) => {
