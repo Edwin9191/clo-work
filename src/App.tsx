@@ -34,9 +34,9 @@ const getStorage = (key: string) => {
 export default function App() {
   const { getListThunk } = useActions();
   const {
-    handleChange,
+    handleKeyword,
     handleCheck,
-    handleClick,
+    handleNextPage,
     pricingOptions,
     filteredList,
     saveOptions,
@@ -57,14 +57,14 @@ export default function App() {
   const targetRef = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
     if (filteredList) {
-      handleClick();
+      handleNextPage();
     }
   });
   return (
     <>
       <Header />
       <ResponsiveBlock>
-        <SearchArea handleChange={handleChange} />
+        <SearchArea handleKeyword={handleKeyword} />
         <FilterArea
           handleCheck={handleCheck}
           handleReset={handleReset}

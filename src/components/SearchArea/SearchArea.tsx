@@ -35,10 +35,10 @@ const SearchIcon = styled.img`
 `;
 
 interface SearchAreaProps {
-  handleChange: (keyword: string) => void;
+  handleKeyword: (keyword: string) => void;
 }
 
-export default function SearchArea({ handleChange }: SearchAreaProps) {
+export default function SearchArea({ handleKeyword }: SearchAreaProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -47,12 +47,12 @@ export default function SearchArea({ handleChange }: SearchAreaProps) {
         placeholder="Search For Creators"
         ref={inputRef}
         onKeyDown={e => {
-          if (e.key === 'Enter') handleChange(inputRef.current.value);
+          if (e.key === 'Enter') handleKeyword(inputRef.current.value);
         }}
       />
       <Button
         type="button"
-        onClick={() => handleChange(inputRef.current.value)}
+        onClick={() => handleKeyword(inputRef.current.value)}
       >
         <SearchIcon src={Icon} alt="icon" />
       </Button>

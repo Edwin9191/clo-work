@@ -52,6 +52,7 @@ export default function FilterArea({
         {PRICING_OPTIONS.map((option, i) => (
           <CheckBox key={`${option}-${i}`}>
             <Input
+              data-testid={`checkbox-${i}`}
               type="checkbox"
               onChange={e => handleCheck(e.target.checked, i)}
               checked={!!pricingOptions.includes(i)}

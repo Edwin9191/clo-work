@@ -11,9 +11,9 @@ interface FilterProps {
   searchKeyword: string;
   pricingOptions: number[];
   filteredList: ClosetContent[];
-  handleClick: () => void;
+  handleNextPage: () => void;
   handleCheck: (checked: boolean, option: number) => void;
-  handleChange: (text: string) => void;
+  handleKeyword: (text: string) => void;
   saveOptions: (options: number[]) => void;
   handleReset: () => void;
 }
@@ -97,22 +97,22 @@ const useFilter = (): FilterProps => {
     [pricingOptions, data, pageData, searchKeyword],
   );
 
-  const handleClick = useCallback(() => {
+  const handleNextPage = useCallback(() => {
     const list = getFilteredList({ list: data, pricingOptions, searchKeyword });
 
     if (!(Math.ceil(list.length / pageData.perPage) < pageData.page + 1))
       setPageData({ ...pageData, page: pageData.page + 1 });
   }, [pageData, data, searchKeyword, pricingOptions]);
 
-  const handleChange = useCallback((text: string) => {
+  const handleKeyword = useCallback((text: string) => {
     setSearchKeyword(text);
   }, []);
 
   return {
-    handleChange,
+    handleKeyword,
     pricingOptions,
     handleCheck,
-    handleClick,
+    handleNextPage,
     searchKeyword,
     filteredList,
     saveOptions,

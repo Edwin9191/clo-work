@@ -48,7 +48,7 @@ const SpanWrapper = styled.div`
 
 interface ListAreaProps {
   list?: ClosetContent[];
-  targetRef: React.MutableRefObject<HTMLDivElement>;
+  targetRef?: React.MutableRefObject<HTMLDivElement>;
 }
 
 const RatioImageBlock = styled.div`
