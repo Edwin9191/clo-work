@@ -1,47 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ClosetContent } from '../../api/closet';
+import { PRICING_OPTIONS } from '../FilterArea/FilterArea';
+
+const BREAK_POINT_MOBILE = 480;
+const BREAK_POINT_TABLET = 768;
+const BREAK_POINT_PC = 1200;
 
 const Block = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
 
-// const Row = styled.div`
-//   height: 300px;
-// `;
-
-const calcWidthPadding = (heightRatio: any, widthRatio: any) => {
-  const result = (heightRatio / widthRatio) * 100;
-  return result;
-};
-const ImgWrapper = styled.div<{ heightRatio: number; widthRatio: number }>`
-  width: 100%;
-  position: relative;
-  padding-top: ${({ heightRatio, widthRatio }) =>
-    `${calcWidthPadding(heightRatio, widthRatio)}%`};
-`;
-
-const Img = styled.img<{ url?: string }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const calcWidthPercent = (span: any): number => {
-  if (!span) return 0;
-  const width = (span / 12) * 100;
-  return width;
-};
-
-const BREAK_POINT_MOBILE = 480;
-const BREAK_POINT_TABLET = 768;
-const BREAK_POINT_PC = 1200;
-
-const Col = styled.div<{ xs: number; sm: number; md: number; lg: number }>`
+const Card = styled.div`
   display: flex;
   flex-direction: column;
   width: calc(100% / 4);
@@ -76,15 +47,9 @@ const SpanWrapper = styled.div`
 `;
 
 interface ListAreaProps {
-  lists?: ClosetContent[];
+  list?: ClosetContent[];
   targetRef: React.MutableRefObject<HTMLDivElement>;
 }
-
-const priceType: any = {
-  0: 'PAID',
-  1: 'FREE',
-  2: 'VIEW ONLY',
-};
 
 const RatioImageBlock = styled.div`
   width: 100%;
@@ -120,36 +85,38 @@ function RatioImage({ heightRatio, widthRatio, src }: RatioImageProps) {
   );
 }
 
-export default function ListArea({ lists, targetRef }: ListAreaProps) {
-  if (lists?.length === 0) {
+const Target = styled.div`
+  height: 1px;
+  width: 100%;
+`;
+
+export default function ListArea({ list, targetRef }: ListAreaProps) {
+  if (list?.length === 0) {
     return <div>loading ...</div>;
   }
   return (
     <Block>
-      {lists?.map((list: any, i) => {
+      {list?.map((content: ClosetContent) => {
         return (
-          <Col key={i} xs={12} sm={6} md={4} lg={3}>
+          <Card key={`${content.id}`}>
             <RatioImage
-              src={list.imagePath}
+              src={content.imagePath}
               widthRatio={1.9}
               heightRatio={2.8}
             />
-            {/* <ImgWrapper widthRatio={1.91} heightRatio={2.5}>
-              <Img alt="" src={list.imagePath} url={list.imagePath} />
-            </ImgWrapper> */}
-            <P>{list.title}</P>
+            <P>{content.title}</P>
             <SpanWrapper>
-              <Span>{`${list.creator}`}</Span> |
+              <Span>{`${content.creator}`}</Span> |
               <Span>
-                {list.pricingOption === 0
-                  ? `$${list.price}`
-                  : priceType[list.pricingOption]}
+                {content.pricingOption === 0
+                  ? `$${content.price}`
+                  : PRICING_OPTIONS[content.pricingOption]}
               </Span>
             </SpanWrapper>
-          </Col>
+          </Card>
         );
       })}
-      <div ref={targetRef} style={{ height: 1, width: '100%' }} />
+      <Target ref={targetRef} />
     </Block>
   );
 }

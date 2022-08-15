@@ -30,7 +30,6 @@ export default function App() {
     handleCheck,
     handleClick,
     pricingOptions,
-    searchKeyword,
     filteredList,
     setOptions,
     handleReset,
@@ -53,7 +52,6 @@ export default function App() {
       handleClick();
     }
   });
-  console.log(searchKeyword);
   return (
     <>
       <Header />
@@ -64,9 +62,7 @@ export default function App() {
           handleReset={handleReset}
           pricingOptions={pricingOptions}
         />
-        {filteredList && (
-          <ListArea lists={filteredList} targetRef={targetRef} />
-        )}
+        {filteredList && <ListArea list={filteredList} targetRef={targetRef} />}
       </ResponsiveBlock>
     </>
   );

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Block = styled.div`
-  /* border: 1px solid red; */
   background: #000;
   padding: 20px 30px;
 `;

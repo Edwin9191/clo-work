@@ -44,8 +44,8 @@ const getFilteredList = ({
   if (searchKeyword.length) {
     result = result.filter(
       content =>
-        content.creator.includes(searchKeyword) ||
-        content.title.includes(searchKeyword),
+        content.creator.toUpperCase().includes(searchKeyword.toUpperCase()) ||
+        content.title.toUpperCase().includes(searchKeyword.toUpperCase()),
     );
   }
 

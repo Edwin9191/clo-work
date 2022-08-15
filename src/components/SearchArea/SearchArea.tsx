@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import Icon from '../Common/SearchButton/Search.png';
+import Icon from '../../assets/Search.png';
 
 const Block = styled.div`
-  /* border: 1px solid blue; */
   position: relative;
   margin-bottom: 15px;
 `;
@@ -22,7 +21,6 @@ const Input = styled.input`
 
 const Button = styled.button`
   position: absolute;
-  /* border: 1px solid blue; */
   color: red;
   top: 25px;
   right: 20px;
@@ -45,7 +43,13 @@ export default function SearchArea({ handleChange }: SearchAreaProps) {
 
   return (
     <Block>
-      <Input placeholder="Search For Creators" ref={inputRef} />
+      <Input
+        placeholder="Search For Creators"
+        ref={inputRef}
+        onKeyDown={e => {
+          if (e.key === 'Enter') handleChange(inputRef.current.value);
+        }}
+      />
       <Button
         type="button"
         onClick={() => handleChange(inputRef.current.value)}

@@ -32,6 +32,8 @@ const Button = styled.button`
   }
 `;
 
+export const PRICING_OPTIONS: string[] = ['Paid', 'Free', 'View Only'];
+
 interface FilterAreaProps {
   handleReset: () => void;
   handleCheck: (checked: boolean, option: number) => void;
@@ -47,35 +49,17 @@ export default function FilterArea({
     <Block>
       <Wrapper>
         <Span active>Pricing Options</Span>
-
-        <CheckBox>
-          <Input
-            type="checkbox"
-            onChange={e => handleCheck(e.target.checked, 0)}
-            checked={!!pricingOptions.includes(0)}
-          />
-          <Span ml>Paid</Span>
-        </CheckBox>
-
-        <CheckBox>
-          <Input
-            type="checkbox"
-            onChange={e => handleCheck(e.target.checked, 1)}
-            checked={!!pricingOptions.includes(1)}
-          />
-          <Span ml>Free</Span>
-        </CheckBox>
-
-        <CheckBox>
-          <Input
-            type="checkbox"
-            onChange={e => handleCheck(e.target.checked, 2)}
-            checked={!!pricingOptions.includes(2)}
-          />
-          <Span ml>View Only</Span>
-        </CheckBox>
+        {PRICING_OPTIONS.map((option, i) => (
+          <CheckBox key={`${option}-${i}`}>
+            <Input
+              type="checkbox"
+              onChange={e => handleCheck(e.target.checked, i)}
+              checked={!!pricingOptions.includes(i)}
+            />
+            <Span ml>{option}</Span>
+          </CheckBox>
+        ))}
       </Wrapper>
-
       <Button onClick={handleReset}>RESET</Button>
     </Block>
   );
